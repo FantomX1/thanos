@@ -8,7 +8,8 @@ See [this](storage.md) for up-to-date list of available object stores for Thanos
 
 ## Requirements
 
-* One or more [Prometheus](https://prometheus.io) v2.0.0 installations
+* One or more [Prometheus](https://prometheus.io) v2.2.1+ installations (strictly v2.0.0 is supported too but not recommended)
+* golang 1.10+
 * An object storage bucket (optional)
 
 ## Get Thanos!
