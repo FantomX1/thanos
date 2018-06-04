@@ -161,6 +161,8 @@ func NewTestBucket(t testing.TB, project string) (objstore.Bucket, func(), error
 	}
 
 	b := NewBucket(name, bkt, nil)
+
+	t.Log("created temporary GCS bucket for GCS tests with name", name, "in project", project)
 	return b, func() {
 		objstore.EmptyBucket(t, ctx, b)
 		if err := bkt.Delete(ctx); err != nil {

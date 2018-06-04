@@ -259,8 +259,6 @@ func configFromEnv() *Config {
 // NewTestBucket creates test bkt client that before returning creates temporary bucket.
 // In a close function it empties and deletes the bucket.
 func NewTestBucket(t testing.TB, location string) (objstore.Bucket, func(), error) {
-	t.Log("Using test AWS bucket.")
-
 	c := configFromEnv()
 	if err := c.ValidateForTests(); err != nil {
 		return nil, nil, err
@@ -282,10 +280,12 @@ func NewTestBucket(t testing.TB, location string) (objstore.Bucket, func(), erro
 		return nil, nil, err
 	}
 
+	t.Log("created temporary AWS bucket for AWS tests with name", name, "in", location)
 	return b, func() {
-		objstore.EmptyBucket(t, context.Background(), b)
-		if err := b.client.RemoveBucket(name); err != nil {
-			t.Logf("deleting bucket failed: %s", err)
-		}
+		// TODO(bplotka): DEBUG ONLY. WE should automatically cleanup, once we know test works.
+		//objstore.EmptyBucket(t, context.Background(), b)
+		//if err := b.client.RemoveBucket(name); err != nil {
+		//	t.Logf("deleting bucket failed: %s", err)
+		//}
 	}, nil
 }

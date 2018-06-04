@@ -55,7 +55,7 @@ func ForeachStore(t *testing.T, testFn func(t testing.TB, bkt objstore.Bucket)) 
 		testutil.Ok(t, err)
 
 		ok := t.Run("aws s3", func(t *testing.T) {
-			defer leaktest.CheckTimeout(t, 10*time.Second)()
+			// TODO(bplotka): Add leaktest when we fix potential leak in minio.
 
 			testFn(t, bkt)
 		})
